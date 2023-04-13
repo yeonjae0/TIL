@@ -1,0 +1,244 @@
+# 23/04/13
+
+# HTTP
+
+- 클라이언트 - 서버 프로토콜
+- 웹 상에서 이루어지는 모든 데이터 교환의 기초가 됨
+- HTML 문서와 같은 리소스들을 가져올 수 있도록 하는 프로토콜(규칙,
+
+## HTTP 특징
+
+- Stateless
+    - 동일한 연결에서 연속적으로 수행되는 두 요청 사이에 링크가 없음
+    - 즉, 응답을 마치고 연결을 끊는 순간 클라이언트와 서버 간의 통신이 끝나며 상태 정보가 유지되지 않음
+- 이는 특정 페이지와 일관되게 상호작용을 하려는 사용자에게 문제가 될 수 있으며 이를 해결하기 위해 쿠키와 세션을 사용해 서버 상태를 요청과 연결하도록 함
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/44900741-859f-449d-8197-164ae590be47/Untitled.png)
+
++) **PUT  / PATCH** 전체와 부분을 수정함에 있어서 차이를 두는 경우도 있음
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6cfeb296-8fc4-47c1-8e1f-470f381087aa/Untitled.png)
+
+2번: 정상
+
+4번: 클라이언트 에러.
+
+5번: 서버 에러. 클라이언트는 잘 보냈는데 서버가 터짐.
+
+# Identifying resources on the web
+
+## 웹에서의 리소스 식별
+
+- HTTP 요청의 대상을 리소스라고 함
+- 리소스는 문서, 사진 또는 기타 어떤 것이든 될 수 있음
+- 각 리소스는 식별을 위해 URI로 식별됨
+
+# URI / URL / URN
+
+## URI
+
+- Uniform Resource Identifier 통합 자원 식별자
+- 인터넷에서 리소스를 식별하는 문자열
+- 가장 **일반적인**  **URI는 웹 주소로 알려진  URL**
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/dca9f2f1-e70f-4c41-ac69-8f951b7497d5/Untitled.png)
+
+- **특정 이름공간에서 이름으로 리소스를 식별하는 URI는 URN**
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/972f6fea-e77f-4cc0-a762-a9010877b6a2/Untitled.png)
+
+리소스를 찾아가는 경로를 제공하지 않음
+
+## URL
+
+- Uniform Resource Locator (통합자원위치)
+- 웹에서 주어진 리소스 주소
+- 네트워크 상에서 리소스가 어디 있는지(주소)를 알려주기 위한 약속
+    - 이러한 리소스는 HTML, CSS, 이미지 등이 될 수 있음
+- URL은 다음과 같이 여러 부분으로 구성되며 일부는 필수이고 나머지는 선택사항
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4b55d51b-f531-4aa2-9f19-d828472d7b93/Untitled.png)
+
+# URL 구조
+
+### Scheme (or protocol)
+
+- 브라우저가 리소스를 요청하는 데 사용해야 하는 프로토콜
+- URL의 첫 부분은 브라우저가 어떤 규약을 사용하는지를 나타냄
+- 기본적으로 웹은 HTTP(S)를 요구. 메일을 열기위한 **mailto:**, 파일을 전송하기 위한 **ftp:** 등 다른 프로토콜도 존재
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ca7059d3-29e0-4428-a641-f366d32c4afa/Untitled.png)
+
+### Authority
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/863f7eee-b120-41b8-95be-e8d7e49d3572/Untitled.png)
+
+- Scheme 다음은 문자패턴 :// 으로 구분된 Authority(권한)이 작성됨
+    - Authority는 domain과 port를 모두 포함하며 둘은 :(콜론)으로 구분됨
+1. Domain Name
+    - 요청 중인 웹 서버를 나타냄
+    - 어떤 웹 서버가 요구되는 지를 가리키며 직접 IP 주소를 사용하는 것도 가능 하지만 사람이 외우기 어렵기 때문에 주로 Domain Name으로 사용
+2. Port
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a26e9b28-bf22-413b-810b-9d83cae0b0f7/Untitled.png)
+
+- 웹 서버의 리소스에 접근하는데 사용되는 기술적인 문(GATE)
+- HTTP 프로토콜의 표준 포트는 다음과 같고 생략이 가능(나머지는 생략 불가능)
+    - HTTP - 80
+    - HTTPS - 443
+- Django의 경우 8000(80+00)이 기본 포트로 설정되어 있음
+
+### Path
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8e3f749a-4dc7-43f2-be84-b671913597a6/Untitled.png)
+
+- 웹 서버의 리소스 경로
+- 초기에는 실제 파일이 위치한 물리적 위치를 나타냈지만, 오늘날은 실제 위치가 아닌 추상화된 형태의 구조를 표현
+
+### Parameters
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/23c165bc-3dd5-4075-9cd6-be60d0205783/Untitled.png)
+
+- 웹 서버에 제공하는 추가적인 데이터
+- 파라미터는 **’&’** 기호로 구분되는 key-value 쌍 목록
+- 서버는 리소스를 응답하기 전에 이러한 파라미터를 사용하여 추가 작업을 수행 할 수 있음
+
+### Anchor (
+
+하이퍼링크와 비슷한 기능을 하는 인터넷상의 다른 문서와 연결된 문자 혹은 그림
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/075d1ec1-b281-4c9b-a9ac-1b74fa31844f/Untitled.png)
+
+- 리소스의 다른 부분에 대한 앵커
+- 리소스 내부 일종의 ‘북마크’를 나타내며 브라우저에 해당 북마크 지점에 있는 콘텐츠를 표시
+    - 예를 들어 HTML 문서에서 브라우저는 앵커가 정의한 지점으로 스크롤 함
+- fragment identifier(부분 식별자)라고 부르는 **’#’** 이후 부분은 서버에 전송되지 않음
+
+## URN (참고)
+
+- Uniform Resource Name(통합 자원 이름)
+- URL과 달리 자원의 위치에 영향을 받지 않는 유일한 이름 역할을 함(독립적 이름)
+- URL의 단점을 극복하기 위해 등장했으며 자원이 어디에 위치한지 여부와 관계없이 이름만으로 자원을 식별
+- 하지만 이름만으로 실제 리소스를 찾는 방법은 보편화되어있지 않아 현재는 대부분  URL 사용
+
+## 정리
+
+- 웹에서의 리소스 식별
+    - 자원의 식별자(**URI**)
+        - 자원의 위치로 자원을 식별(**URL**)
+        - 고유한 이름으로 자원을 식별(**URN**)
+
+# 클라이언트-서버
+
+- 오늘날 우리가 사용하는 대부분의 웹 서비스 구조
+- 클라이언트와 서버 역시 하나의 컴퓨터
+
+### 클라이언트
+
+- 웹 사용자의 인터넷에 연결된 장치(컴퓨터 or 모바일)
+- chrome 또는 firefox와 같은 웹 브라우저
+- 서비스를 요청하는 주체
+
+### 서버
+
+- 웹 페이지, 사이트 또는 앱을 저장하는 컴퓨터
+- 클라이언트가 웹 페이지에 접근하려고 할 때 서버에서 클라이언트 컴퓨터로 웹 페이지 데이터를 응답해 사용자의 웹 브라우저에 표시됨
+- 요청에 대해 서비스를 응답하는 주체
+
+## 클라이언트 - 서버 구조
+
+- ‘Google 홈페이지.html’을 달라고 요청한 컴퓨터, 웹 브라우저를 **클라이언트**라고 하고, ‘Google 홈페이지.html’ 파일을 제공한 컴퓨터, 프로그램을 **서버**라고 함
+- 어떠한 자원(resource)를 달라고 요청(request)하는 쪽을 클라이언트, 자원을 제공해주는 쪽을 서버(server)라고 함
+
+# REST API
+
+- Application Programming Interface
+- 애플리케이션과 프로그래밍으로 소통하는 방법
+    - 개발자가 복잡한 기능을 보다 쉽게 만들 수 있도록 프로그래밍언어로 제공되는 구성
+- API를 제공하는 애플리케이션과 다른 소프트웨어 및 하드웨어 등의 것들 사이의 간단한 계약(인터페이스)이라고 볼 수 있음
+
+## Web API
+
+- 웹 서버 또는 웹 브라우저를 위한 API
+- 현재 웹 개발은 모든 것을 하나부터 열까지 직접 개발하기보다 여러 Open API를 활용하는 추세
+- 대표적인 Third Party Open API 목록
+    - Youtube API
+    - Naver Papago API
+    - Kakao Map API
+- API는 다양한 타입의 데이터를 응답
+    - HTML, XML, JSON 등
+
+## REST
+
+- **HTTP 프로토콜( 자원 식별자, HTTP 메서드)를 사용하여 제한된 인터페이스 상에서 클라이언트와 서버 사이에서 상호작용하는 아키텍처를 사용**
+- Representational State Transfer
+- API Server를 개발하기 위한 일종의 소트프웨어 설계 방법론
+- **REST 원리를 따르는 시스템을 RESTful하다고 부름**
+- REST의 기본 아이디어는 리소스 즉, 자원
+    - 자원을 정의하고 자원에 대한 주소를 지정하는 전반적인 방법을 서술
+
+### REST에서 자원을 정의하고 주소를 지정하는 방법
+
+1. 자원의 식별
+    - URI
+2. 자원의 행위
+    - HTTP Method
+3. 자원의 표현
+    - 자원과 행위를 통해 궁극적으로 표현되는 (추상화된) 결과물
+    - JSON으로 표현된 데이터를 제공
+
+## JSON
+
+- JSON is a lightweight data-interchange format
+- JavaScript의 표기법을 따른 단순 문자열
+- 파이썬의 dictionary, 자바스크립트의 object처럼 C 계열의 언어가 갖고 있는 자료구조로 쉽게 변환할 수 있는  key-value 형태의 구조를 갖고 있음
+- 사람이 읽고 쓰기 쉽고 기계가 파싱(해석 & 분석)하고 만들어내기 쉽기 때문에 현재 API에서 가장 많이 사용하는 데이터 타입
+
+## REST 정리
+
+자원을 정의하고 자원에 대한 주소를 지정하는 방법의 모음
+
+1. 자원을 식별 - **URI**
+2. 자원에 대한 행위 - **HTTP Methods**
+3. 자원을 표현 - **JSON**
+
+# Response
+
+1. HTML 응답
+2. JsonResponse()를 사용한 JSON 응답
+3. Django Serializer를 사용한 JSON 응답
+4. Django REST framework를 사용한 JSON 응답
+
+## JsonResponse()를 사용한 JSON 응답
+
+**JsonResponse()**
+
+- JSON-encoded response를 만드는 클래스
+- ‘safe’ parameter
+    - 기본값 True
+    - **False로 설정 시 모든 타입의 객체를 serialization 할 수 있음**
+        
+        (그렇지 않으면 dict 인스턴스만 허용됨 - json)
+        
+
+## Django Serializer를 사용한 JSON 응답
+
+- Django의 내장 **HttpResponse()**를 활용한 JSON 응답
+
+## Serialization
+
+- 직렬화
+- 여러 시스템에서 활용하기 위해 데이터 구조나 객체 상태를 나중에 재구성할 수 있는 포맷으로 변환하는 과정
+    - 즉, 어떠한 언어나 환경에서도 **나중에 다시 쉽게 사용할 수 있는 포맷으로 변환하는 과정**
+- 변환 포맷은 대표적으로 json, xml, yaml이 있으며 json이 가장 보편적으로 쓰임
+- Django의 serialize()는 Queryset 및 Model Instance와 같은 복잡한 데이터를 JSON, XML 등의 유형으로 쉽게 변환할 수 있는 Python 데이터 타입으로 만들어 줌
+
+## Django REST framework를 사용한 JSON 응답
+
+**Django REST framework**(**DRF**)
+
+- Django에서 Restful API 서버를 쉽게 구축할 수 있도록 도와주는 오픈소스 라이브러리
+- Web API 구축을 위한 강력한 toolkit을 제공
+- REST framework를 작성하기 위한 여러 기능을 제공
+- DRF의 serializer는 Django의 Form 및 ModelForm 클래스와 매우 유사하게 작동
+- [http://www.django-rest-framework.org/](http://www.django-rest-framework.org/)
